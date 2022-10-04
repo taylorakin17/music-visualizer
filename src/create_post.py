@@ -4,12 +4,16 @@
 import os
 import datetime
 import sys
+import argparse
 
 def main():
-    # get title from command line
-    title = sys.argv[1]
-
-    if title == "":
+    parser = argparse.ArgumentParser(description='Create a new post')
+    # add an optional argument called title
+    parser.add_argument('--title', '-t', help='Title of the post', type=str)
+    args = parser.parse_args()
+    if args.title:
+        title = args.title
+    else:
         title = "weekly_update"
 
     # get date of the monday of the current week
