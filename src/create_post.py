@@ -10,6 +10,7 @@ def main():
     parser = argparse.ArgumentParser(description='Create a new post')
     # add an optional argument called title
     parser.add_argument('--title', '-t', help='Title of the post', type=str)
+    parser.add_argument('--current_week', '-c', help='Create a post for the current week if set.', action="store_true")
     args = parser.parse_args()
     if args.title:
         title = args.title
@@ -19,6 +20,8 @@ def main():
     # get date of the monday of the current week
     today = datetime.date.today()
     monday = today - datetime.timedelta(days=today.weekday())
+    if not args.current_week:
+        monday = monday + datetime.timedelta(days=7)
     date = monday.strftime('%Y-%m-%d')
 
     # create filename
