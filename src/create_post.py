@@ -19,10 +19,13 @@ def main():
 
     # get date of the monday of the current week
     today = datetime.date.today()
-    monday = today - datetime.timedelta(days=today.weekday())
+    # monday = today - datetime.timedelta(days=today.weekday())
+    wednesday = today - datetime.timedelta(days=(today.weekday() - 2))
     if not args.current_week:
-        monday = monday + datetime.timedelta(days=7)
-    date = monday.strftime('%Y-%m-%d')
+        wednesday = wednesday + datetime.timedelta(days=7)
+        # monday = monday + datetime.timedelta(days=7)
+    date = wednesday.strftime('%Y-%m-%d')
+    # date = monday.strftime('%Y-%m-%d')
 
     # create filename
     filename = date + '-' + title.replace(' ', '_') + '.md'
