@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Visualization</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <h1>Music Visualization</h1>
+    <div>
+        <label for="music">Choose a Piece:</label>
+        <select name="music" id="music">
+            <option value="none">No piece selected</option>
+            <option value="mozart 1">Mozart Bassoon Concerto Mvt. 1</option>
+            <option value="mozart 2">Mozart Bassoon Concerto Mvt. 2</option>
+            <option value="mozart 3">Mozart Bassoon Concerto Mvt. 3</option>
+            <option value="beethoven 1">Beethoven Symphony No. 5 Mvt. 1</option>
+            <option value="beethoven 2">Beethoven Symphony No. 5 Mvt. 2</option>
+            <option value="beethoven 3">Beethoven Symphony No. 5 Mvt. 3</option>
+            <option value="beethoven 4">Beethoven Symphony No. 5 Mvt. 4</option>
+        </select>
+        <button id="submit">Submit</button>
+    </div>
+    <div class="visualization">
+        <div id="heatmap"></div>
+    </div>
+</body>
+</html>
