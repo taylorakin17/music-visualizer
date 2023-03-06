@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, render_template
 import pandas as pd
 import numpy as np
+import json
 
 app = Flask(__name__)
 
@@ -12,10 +13,11 @@ def index():
    return render_template('index.html')
 
 
-@app.route('/get_piechart_data')
-def get_piechart_data():
-    pass
-    # return jsonify(piechart_data)
+@app.route('/get_heatmap_data')
+def get_heatmap_data():
+    with open('data/saint_saens_1.json', 'r') as f:
+        data = json.load(f)
+    return jsonify(data)
 
 @app.route('/get_barchart_data')
 def get_barchart_data():
