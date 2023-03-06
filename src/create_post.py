@@ -30,6 +30,11 @@ def main():
     # create filename
     filename = date + '-' + title.replace(' ', '_') + '.md'
 
+    # check if the file already exists
+    if os.path.exists(os.path.join('../docs/_posts', filename)):
+        print('File already exists')
+        return
+
     # create file
     with open(os.path.join('../docs/_posts', filename), 'w') as f:
         f.write('---\n')
