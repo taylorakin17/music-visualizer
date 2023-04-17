@@ -1,6 +1,6 @@
 import music21
-from note_pair import NotePair
-from type21 import isNote, isChord, report_note_first, report_note_second
+from data_preprocessing.note_pair import NotePair
+from data_preprocessing.type21 import isNote, isChord, report_note_first, report_note_second
 
 # calculate the difficulty of each note with respect to notes before it
 def calculate_before_d_(currNoteIndex, tempo, nara, left_spread):

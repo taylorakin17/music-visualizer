@@ -1,9 +1,9 @@
 # imports and constants
 import music21
 from pprint import pprint
-from difficulty import *
-from note_pair import NotePair
-from type21 import *
+from data_preprocessing.difficulty import *
+from data_preprocessing.note_pair import NotePair
+from data_preprocessing.type21 import *
 import warnings
 import os
 import numpy as np

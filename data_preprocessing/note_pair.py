@@ -1,5 +1,5 @@
-from fingering import compute_difficulty
-import type21
+from data_preprocessing.fingering import compute_difficulty
+import data_preprocessing.type21 as type21
 
 # NotePair takes two notes in 
 class NotePair:
