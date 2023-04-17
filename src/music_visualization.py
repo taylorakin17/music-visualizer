@@ -8,6 +8,7 @@ import warnings
 import os
 import numpy as np
 import pandas as pd
+import json
 
 
 # global variables
@@ -185,7 +186,8 @@ def extract_bassoon():
 
 
 def main():
-    path = "../music/xml/scan/SonataforBassoonandPianoOp168.xml"
+    #path = "../music/xml/scan/SonataforBassoonandPianoOp168.xml" # Scanned version
+    path = "../music/xml/musescore/SonataforBassoonandPianoOp168.musicxml"
     score = parse_score(path)
     # df = spf.convertScoreToDF(score)
     extract_parts_to_data_frame(score, "Saint-Saens Sonata for Bassoon and Piano", "1")
@@ -199,8 +201,8 @@ def main():
     # extract_bassoon()
     # set first_bassoon_df to a view of the data frame where the instrument is the note type is a note
     global first_bassoon_df
-    first_bassoon_df = data_df[(data_df['type'] == music21.note.Note) & (data_df['measureNumber'] > 1)]
-    print(first_bassoon_df.head(20))
+    first_bassoon_df = data_df[data_df['type'] == music21.note.Note]
+    # print(first_bassoon_df.head(20))
 
     window_size = 9
     half_window = (window_size - 1) // 2
@@ -238,8 +240,30 @@ def main():
     # Add the new column to the original DataFrame
     data_df.loc[first_bassoon_df.index, 'finger_difficulty'] = first_bassoon_df['finger_difficulty']
 
-    with pd.option_context('display.max_rows', None,'display.max_columns', None,'display.precision', 3, 'display.expand_frame_repr', False):
-        print(data_df)
+    # Fix the NaN values in the finger_difficulty column and the tempo column
+    data_df['tempo'] = data_df['tempo'].fillna(0)
+    data_df['finger_difficulty'] = data_df['finger_difficulty'].fillna(0)
+    # just_diffs = data_df[['offset', 'finger_difficulty']]
+    # with pd.option_context('display.max_rows', None,'display.max_columns', None,'display.precision', 3, 'display.expand_frame_repr', False):
+    #     print(just_diffs)
+
+    # Define a custom function to handle non-serializable objects
+    def default(obj):
+        if isinstance(obj, set):
+            return str(obj)
+        else:
+            return str(obj)
+        raise TypeError(f"Object of type {obj.__class__.__name__} is not JSON serializable")
+
+    # save the data frame to a json file called "saint_saens_1.json"
+    # data_df.to_json('saint_saens_1.json', default_handler=str)
+    # export_df = data_df.drop(['type', 'noteObj', 'quarterLengthDuration'], axis=1)
+    data_list = data_df.to_dict(orient='records')
+    with open('saint_saens_1.json', 'w') as f:
+        json.dump(data_list, f, default=default)
+    # data_json = json.dumps(data_list)
+    # data_df.to_json("saint_saens_1.json")
+
 
 if __name__ == '__main__':
     main()
